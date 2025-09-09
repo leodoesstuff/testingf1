@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>N64 Emulator - TestingF1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin:0; height:100%; background:#000; color:#fff; font-family:"Press Start 2P", monospace; }
+    #wrap { width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+    #game { width:100%; height:100%; display:none; }
+    #startButton {
+      padding:12px 20px; background:#4CAF50; color:#fff; border:0; border-radius:8px; cursor:pointer; font-size:14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="game"></div>
+    <button id="startButton">PLAY</button>
+  </div>
+
+  <script>
+    // EmulatorJS settings
+    const EJS_CORE     = "n64";
+    const EJS_GAME_URL = "https://cdn.jsdelivr.net/gh/leodoesstuff/testingf1@22332b4c15a54e83ac5c49f1f0a29e29f396add8/testing.z64";
+
+    const EJS_DATA_PATH = "https://cdn.jsdelivr.net/gh/a456pur/seraph@81f551ca0aa8e3d6018d32d8ac5904ac9bc78f76/storage/emulatorjs/data";
+    const EJS_LOADER    = EJS_DATA_PATH + "/loader.js";
+
+    const gameDiv = document.getElementById("game");
+    const btn = document.getElementById("startButton");
+
+    btn.addEventListener("click", () => {
+      btn.style.display = "none";
+      gameDiv.style.display = "block";
+
+      window.EJS_player        = "#game";
+      window.EJS_core          = EJS_CORE;
+      window.EJS_gameUrl       = EJS_GAME_URL;
+      window.EJS_pathtodata    = EJS_DATA_PATH;
+      window.EJS_startOnLoaded = true;
+      window.EJS_color         = "#000000";
+
+      const s = document.createElement("script");
+      s.src = EJS_LOADER;
+      document.body.appendChild(s);
+    });
+  </script>
+</body>
+</html>
